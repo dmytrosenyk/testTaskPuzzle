@@ -1,5 +1,6 @@
-package com.puzzle;
+package com.puzzle.action_listener;
 
+import com.puzzle.elements.Puzzle;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DragGestureEvent;

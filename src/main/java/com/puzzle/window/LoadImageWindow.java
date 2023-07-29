@@ -1,5 +1,6 @@
-package com.puzzle;
+package com.puzzle.window;
 
+import com.puzzle.services.DefaultSettings;
 import java.awt.*;
 import java.io.File;
 import javax.swing.*;
@@ -93,8 +94,8 @@ public class LoadImageWindow extends JFrame{
     }
   }
 
-  public static void test() {
-    LoadImageWindow loadImageWindow = new LoadImageWindow("img",4,4);
+  public static void test(int rows, int columns) {
+    LoadImageWindow loadImageWindow = new LoadImageWindow("img",rows,columns);
     loadImageWindow.initUI();
   }
 }

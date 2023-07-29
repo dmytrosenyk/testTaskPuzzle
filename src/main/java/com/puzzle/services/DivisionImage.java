@@ -1,4 +1,4 @@
-package com.puzzle;
+package com.puzzle.services;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -38,12 +38,5 @@ public class DivisionImage {
     }
     Collections.addAll(pieces, subImgs);
     return pieces;
-  }
-
-  public static List<Image> divisionResizedImageIntoParts(BufferedImage image, int rows, int columns,int newW){
-    int newH =  DefaultSettings.getHeight(image,newW);
-    BufferedImage resizedImage = ResizeImage.resize(image,newW,newH);
-
-    return divisionImageIntoParts(resizedImage,rows,columns);
   }
 }

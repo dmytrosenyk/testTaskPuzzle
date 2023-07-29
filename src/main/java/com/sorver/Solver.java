@@ -9,21 +9,21 @@ public class Solver {
 
   public static List<BufferedImage> solver(List<BufferedImage> bufferedImages, int rows, int columns) {
 
-    LinkedList<LinkedList<Image>> puzzles =new LinkedList<>();
-    LinkedList<Image> images = bufferedImages.stream()
-        .map(Image::new)
+    LinkedList<LinkedList<ImageForSolving>> puzzles =new LinkedList<>();
+    LinkedList<ImageForSolving> images = bufferedImages.stream()
+        .map(ImageForSolving::new)
         .collect(Collectors.toCollection(LinkedList::new));
 
     for (int i = 0; i < rows; i++)
       puzzles.add(PuzzleBuilder.buildRow(images,columns));
 
-    List<Image> result = PuzzleBuilder.buildPuzzle(puzzles, rows)
+    List<ImageForSolving> result = PuzzleBuilder.buildPuzzle(puzzles, rows)
         .stream()
         .flatMap(LinkedList::stream)
         .collect(Collectors.toCollection(LinkedList::new));
 
     return result.stream()
-        .map(Image::getImage)
+        .map(ImageForSolving::getImage)
         .toList();
   }
 }

@@ -7,9 +7,9 @@ import java.util.stream.IntStream;
 
 public class PuzzleBuilder {
 
-  public static LinkedList<Image> buildRow(LinkedList<Image> images, int columns){
+  public static LinkedList<ImageForSolving> buildRow(LinkedList<ImageForSolving> images, int columns){
 
-    LinkedList<Image> row = new LinkedList<>();
+    LinkedList<ImageForSolving> row = new LinkedList<>();
     boolean wayOfBuildIsRight = true;
     PuzzleBuilder p = new PuzzleBuilder();
     while (columns>0) {
@@ -19,7 +19,7 @@ public class PuzzleBuilder {
       }
       else if (wayOfBuildIsRight){
         List<Integer> countCompatibility= new ArrayList<>();
-        for (Image image : images) {
+        for (ImageForSolving image : images) {
           countCompatibility.add(ImageCompatibility.countCompatibilityOfImages(row.getLast().getRIGHT(), image.getLEFT()));
         }
         int maxPosition = p.getMaxPosition(countCompatibility);
@@ -35,7 +35,7 @@ public class PuzzleBuilder {
       }
       else {
         List<Integer> countCompatibility = new ArrayList<>();
-        for (Image image : images) {
+        for (ImageForSolving image : images) {
           countCompatibility.add(ImageCompatibility.countCompatibilityOfImages(row.getFirst().getLEFT(), image.getRIGHT()));
         }
         int maxPosition = p.getMaxPosition(countCompatibility);
@@ -55,9 +55,9 @@ public class PuzzleBuilder {
     return row;
   }
 
-  public static LinkedList<LinkedList<Image>> buildPuzzle(LinkedList<LinkedList<Image>> images, int rows){
+  public static LinkedList<LinkedList<ImageForSolving>> buildPuzzle(LinkedList<LinkedList<ImageForSolving>> images, int rows){
 
-    LinkedList<LinkedList<Image>> puzzle = new LinkedList<>();
+    LinkedList<LinkedList<ImageForSolving>> puzzle = new LinkedList<>();
     boolean wayOfBuildIsBottom = true;
     PuzzleBuilder p = new PuzzleBuilder();
     while (rows>0) {
@@ -67,7 +67,7 @@ public class PuzzleBuilder {
       }
       else if (wayOfBuildIsBottom){
         List<Integer> countCompatibility = new ArrayList<>();
-        for (LinkedList<Image> image : images) {
+        for (LinkedList<ImageForSolving> image : images) {
           countCompatibility.add(ImageCompatibility.countCompatibilityOfImages(
               puzzle.getLast()
                   .stream()
@@ -90,7 +90,7 @@ public class PuzzleBuilder {
       }
       else {
         List<Integer> countCompatibility = new ArrayList<>();
-        for (LinkedList<Image> image : images) {
+        for (LinkedList<ImageForSolving> image : images) {
           countCompatibility.add(ImageCompatibility.countCompatibilityOfImages(
               puzzle.getFirst()
                   .stream()

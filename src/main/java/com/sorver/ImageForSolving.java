@@ -3,14 +3,14 @@ package com.sorver;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
-public class Image {
+public class ImageForSolving {
   private int[] TOP;
   private int[] LEFT;
   private int[] RIGHT;
   private int[] BOTTOM;
   private BufferedImage image;
 
-  public Image(BufferedImage image) {
+  public ImageForSolving(BufferedImage image) {
 
     this.image = image;
     int[][] pixels =Pixel.pixelArray(image);

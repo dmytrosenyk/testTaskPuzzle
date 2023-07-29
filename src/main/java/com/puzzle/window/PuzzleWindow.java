@@ -1,21 +1,31 @@
-package com.puzzle;
+package com.puzzle.window;
 
+import com.puzzle.services.DefaultSettings;
+import com.puzzle.action_listener.DragListener;
+import com.puzzle.action_listener.DropListener;
+import com.puzzle.elements.Puzzle;
+import com.puzzle.elements.PuzzleFactory;
+import com.puzzle.services.ReadImg;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragSource;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.*;
 
 public class PuzzleWindow extends JFrame {
   private List<Puzzle> puzzles;
 
   private List<JPanel> solutions;
+  private List<BufferedImage> imgForSolver;
   private final BufferedImage img;
   private final JPanel leftPanel = new JPanel();
   private final JPanel rightPanel = new JPanel();
@@ -49,21 +59,28 @@ public class PuzzleWindow extends JFrame {
 
     leftPanel.setBackground(new Color(250, 166, 166));
     rightPanel.setBackground(Color.lightGray);
-    setSize(width,height);
+    setSize(width,height+40);
+    JButton solveButton= new JButton("solve");
+    solveButton.setPreferredSize(new Dimension(width,40));
+    add(solveButton, BorderLayout.NORTH);
+    solveButton.addActionListener(e -> new SolvingWindow(imgForSolver,columns,rows,height,width/2));
+
     JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, leftPanel, rightPanel);
     splitPane.setDividerLocation(getWidth() / 2);
     makeLeftTable(leftPanel);
     makeRightTable(rightPanel);
     setLocationRelativeTo(null);
-    setContentPane(splitPane);
+    add(splitPane);
     setResizable(false);
   }
   private void makeLeftTable(JPanel panel){
     DragListener dlistener = new DragListener();
     DragSource ds = new DragSource();
     try {
-      puzzles=PuzzleFactory.createPuzzles(img,rows,columns, (int) ((width*0.95)/2));
+      puzzles= PuzzleFactory.createPuzzlesFromImage(img,rows,columns, (int) ((width*0.95)/2));
       Collections.shuffle(puzzles);
+      imgForSolver= puzzles.stream().map(Puzzle::getNoResizedImage).collect(Collectors.toList());
+      puzzles.forEach(x->x.setNoResizedImage(null));
     }
     catch (IOException e) {
       throw new RuntimeException(e);

@@ -1,4 +1,4 @@
-package com.puzzle;
+package com.puzzle.services;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
