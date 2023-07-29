@@ -40,18 +40,10 @@ public class DivisionImage {
     return pieces;
   }
 
-  public static List<Image> divisionResizedImageIntoParts(BufferedImage image, int rows, int columns,int newWidth){
-    int h = new DivisionImage().getNewHeight(image.getWidth(), image.getHeight(),newWidth);
-    BufferedImage resizedImage = new BufferedImage(newWidth, h, BufferedImage.TYPE_INT_ARGB);
-    Graphics2D g = resizedImage.createGraphics();
-    g.drawImage(image, 0, 0, newWidth, h, null);
-    g.dispose();
+  public static List<Image> divisionResizedImageIntoParts(BufferedImage image, int rows, int columns,int newW){
+    int newH =  DefaultSettings.getHeight(image,newW);
+    BufferedImage resizedImage = ResizeImage.resize(image,newW,newH);
 
     return divisionImageIntoParts(resizedImage,rows,columns);
-  }
-  private int getNewHeight(int w, int h, int newWidth) {
-
-    double ratio = newWidth / (double) w;
-    return (int) (h * ratio);
   }
 }
