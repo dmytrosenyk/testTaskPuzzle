@@ -1,4 +1,4 @@
-package com.senyk.puzzle;
+package com.puzzle;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -118,12 +118,5 @@ public class PuzzleWindow extends JFrame {
       new DropListener(p,solutions);
 
     }
-
   }
-
-
-  public static void test() {
-    new PuzzleWindow(DefaultSettings.DEFAULT_IMG,4,4);
-  }
-
 }

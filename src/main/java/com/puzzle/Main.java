@@ -1,4 +1,4 @@
-package com.senyk.puzzle;
+package com.puzzle;
 
 public class Main {
 

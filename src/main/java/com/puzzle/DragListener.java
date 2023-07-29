@@ -1,4 +1,4 @@
-package com.senyk.puzzle;
+package com.puzzle;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
