@@ -1,5 +1,8 @@
 # testTaskPuzzle
 ![Alt Text](src/main/resources/mygif.gif)
+### Game options:
+1) Quick start with the default image: press ```START```
+2) With your custom image: press ```CHOOSE``` then press ```START```
 ### Prerequisites
 - Java 17
 - Maven
