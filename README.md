@@ -1,5 +1,5 @@
 # testTaskPuzzle
-
+![Alt Text](src/main/resources/mygif.gif)
 ### Prerequisites
 - Java 17
 - Maven
@@ -7,6 +7,8 @@
 ### Steps to run an Application
 1.  ```mvn clean install```
 2.  ```java -jar target/puzzle-1.0-SNAPSHOT.jar```
+
+###### In order to run only puzzle solving algorithm - use this repo (https://github.com/dmytrosenyk/testTaskPuzzleAlgorithmSolving)
 
 ### Завдання від Devcom
 Потрібно написати програму Пазли
