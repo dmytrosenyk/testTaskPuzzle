@@ -1,4 +1,13 @@
 # testTaskPuzzle
+
+### Prerequisites
+- Java 17
+- Maven
+
+### Steps to run an Application
+1.  ```mvn clean install```
+2.  ```java -jar target/puzzle-1.0-SNAPSHOT.jar```
+
 ### Завдання від Devcom
 Потрібно написати програму Пазли
 
