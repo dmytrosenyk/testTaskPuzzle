@@ -88,12 +88,14 @@ public class PuzzleWindow extends JFrame {
     for (JPanel p : solutions) {
       panel.add(p);
       TransferHandler dnd = new TransferHandler() {
+        private static final DataFlavor puzzleFlavor = new DataFlavor(Puzzle.class, "Puzzle");
+
         @Override
         public boolean canImport(TransferSupport support) {
           if (!support.isDrop()) {
             return false;
           }
-          return support.isDataFlavorSupported(DataFlavor.imageFlavor);
+          return support.isDataFlavorSupported(puzzleFlavor);
         }
 
         @Override
@@ -103,14 +105,14 @@ public class PuzzleWindow extends JFrame {
           }
 
           Transferable tansferable = support.getTransferable();
-          Icon ico;
+          Puzzle ico;
           try {
-            ico = (Icon) tansferable.getTransferData(DataFlavor.imageFlavor);
+            ico = (Puzzle) tansferable.getTransferData(puzzleFlavor);
           } catch (Exception e) {
             e.printStackTrace();
             return false;
           }
-          p.add(new JLabel(ico));
+          p.add(ico);
           return true;
         }
       };
