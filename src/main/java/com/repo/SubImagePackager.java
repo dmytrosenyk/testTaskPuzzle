@@ -5,28 +5,27 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.imageio.ImageIO;
 
 public class SubImagePackager {
 
-    public static boolean writeListImgToFile(List<BufferedImage> images, String name){
+    public static void writeListImgToFile(Map<Integer, BufferedImage> images, String name){
 
         try {
-            for (int i = 0; i < images.size(); i++) {
-                String nameFile = "src/main/resources/sub-img/sub-"+name+"_"+i+".jpg";
+            for (Map.Entry<Integer, BufferedImage> entry : images.entrySet()) {
+                String nameFile = "src/main/resources/sub_img/sub-"+name+"_"+entry.getKey()+".jpg";
                 File outputfile = new File(nameFile);
-                ImageIO.write(images.get(i), "jpg", outputfile);
+                ImageIO.write(entry.getValue(), "jpg", outputfile);
             }
-            return true;
         }
-        catch (IOException e) {
-            return false;
+        catch (IOException ignored) {
         }
     }
 
     public static List<BufferedImage> readListImg(String name){
 
-        String nameFile = "src/main/resources/sub-img/sub-"+name+"_";
+        String nameFile = "src/main/resources/sub_img/sub-"+name+"_";
         List<BufferedImage> images=new ArrayList<>();
         int i=0;
 

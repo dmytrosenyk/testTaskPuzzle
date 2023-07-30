@@ -6,6 +6,8 @@ import com.puzzle.action_listener.DropListener;
 import com.puzzle.elements.Puzzle;
 import com.puzzle.elements.PuzzleFactory;
 import com.puzzle.services.RandomName;
+import com.repo.ImagePOJO;
+import com.repo.ImageToJson;
 import com.repo.ReadImg;
 import com.repo.SubImagePackager;
 import java.awt.*;
@@ -18,14 +20,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.swing.*;
 
 public class PuzzleWindow extends JFrame {
   private List<Puzzle> puzzles;
   private String nameOfPuzzle;
+  private Map<Integer, BufferedImage> imageMap;
 
-  private List<JPanel> solutions;
   private List<BufferedImage> imgForSolver;
   private final BufferedImage img;
   private final JPanel leftPanel = new JPanel();
@@ -80,8 +83,15 @@ public class PuzzleWindow extends JFrame {
     try {
       puzzles= PuzzleFactory.createPuzzlesFromImage(img,rows,columns, (int) ((width*0.95)/2));
       Collections.shuffle(puzzles);
+      imageMap = puzzles.stream().collect(Collectors.toMap(Puzzle::getNumber,Puzzle::getNoResizedImage));
       imgForSolver= puzzles.stream().map(Puzzle::getNoResizedImage).collect(Collectors.toList());
-      SubImagePackager.writeListImgToFile(imgForSolver, nameOfPuzzle);
+      SubImagePackager.writeListImgToFile(imageMap, nameOfPuzzle);
+      List<ImagePOJO> imagePOJOS = imageMap.keySet()
+          .stream()
+          .map(image -> new ImagePOJO(image, nameOfPuzzle +"_"+ image))
+          .toList();
+      String nameFile = "src/main/resources/solution_mapping/"+this.nameOfPuzzle+".json";
+      ImageToJson.imageListToJson(imagePOJOS,nameFile);
       puzzles.forEach(x->x.setNoResizedImage(null));
     }
     catch (IOException e) {
@@ -97,7 +107,7 @@ public class PuzzleWindow extends JFrame {
   private void makeRightTable(JPanel panel){
     panel.setLayout(new GridLayout(rows,columns));
 
-    solutions=new ArrayList<>();
+    List<JPanel> solutions = new ArrayList<>();
     for (int i = 0; i < rows * columns; i++) {
       JPanel p = new JPanel();
       p.setBorder(BorderFactory.createLineBorder(Color.lightGray));
@@ -136,7 +146,7 @@ public class PuzzleWindow extends JFrame {
         }
       };
       p.setTransferHandler(dnd);
-      new DropListener(p,solutions);
+      new DropListener(p, solutions);
 
     }
   }

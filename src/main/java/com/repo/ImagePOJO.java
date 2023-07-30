@@ -5,7 +5,13 @@ import java.awt.image.BufferedImage;
 public class ImagePOJO {
 
   private Integer number;
-  private BufferedImage bufferedImage;
+  private String bufferedImage;
+
+  public ImagePOJO(Integer number, String bufferedImage) {
+
+    this.number = number;
+    this.bufferedImage = bufferedImage;
+  }
 
   public Integer getNumber() {
 
@@ -17,12 +23,12 @@ public class ImagePOJO {
     this.number = number;
   }
 
-  public BufferedImage getBufferedImage() {
+  public String getBufferedImage() {
 
     return bufferedImage;
   }
 
-  public void setBufferedImage(BufferedImage bufferedImage) {
+  public void setBufferedImage(String bufferedImage) {
 
     this.bufferedImage = bufferedImage;
   }
