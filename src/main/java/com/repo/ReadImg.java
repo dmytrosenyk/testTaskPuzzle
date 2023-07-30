@@ -1,4 +1,4 @@
-package com.puzzle.services;
+package com.repo;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

@@ -5,14 +5,14 @@ import com.puzzle.action_listener.DragListener;
 import com.puzzle.action_listener.DropListener;
 import com.puzzle.elements.Puzzle;
 import com.puzzle.elements.PuzzleFactory;
-import com.puzzle.services.ReadImg;
+import com.puzzle.services.RandomName;
+import com.repo.ReadImg;
+import com.repo.SubImagePackager;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragSource;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +23,7 @@ import javax.swing.*;
 
 public class PuzzleWindow extends JFrame {
   private List<Puzzle> puzzles;
+  private String nameOfPuzzle;
 
   private List<JPanel> solutions;
   private List<BufferedImage> imgForSolver;
@@ -45,7 +46,7 @@ public class PuzzleWindow extends JFrame {
     catch (IOException e) {
       throw new RuntimeException(e);
     }
-
+    this.nameOfPuzzle= RandomName.randName();
     this.rows=rows;
     this.columns=columns;
     this.height = (int) (DefaultSettings.getHeight(img,width)/2*1.15);
@@ -80,6 +81,7 @@ public class PuzzleWindow extends JFrame {
       puzzles= PuzzleFactory.createPuzzlesFromImage(img,rows,columns, (int) ((width*0.95)/2));
       Collections.shuffle(puzzles);
       imgForSolver= puzzles.stream().map(Puzzle::getNoResizedImage).collect(Collectors.toList());
+      SubImagePackager.writeListImgToFile(imgForSolver, nameOfPuzzle);
       puzzles.forEach(x->x.setNoResizedImage(null));
     }
     catch (IOException e) {
