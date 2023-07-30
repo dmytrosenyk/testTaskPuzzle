@@ -38,7 +38,7 @@ public class PuzzleWindow extends JFrame {
   //4<=rows(columns)<=25
   public PuzzleWindow(String imgPath, int rows, int columns){
 
-    super("SplitPane example");
+    super("SplitPane");
     try {
       this.img = ReadImg.readFile(imgPath);
     }
