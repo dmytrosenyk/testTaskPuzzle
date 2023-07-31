@@ -88,7 +88,7 @@ public class PuzzleWindow extends JFrame {
       SubImagePackager.writeListImgToFile(imageMap, nameOfPuzzle);
       List<ImagePOJO> imagePOJOS = imageMap.keySet()
           .stream()
-          .map(image -> new ImagePOJO(image, nameOfPuzzle +"_"+ image))
+          .map(image -> new ImagePOJO(image, "sub-"+nameOfPuzzle +"_"+ image))
           .toList();
       String nameFile = "src/main/resources/solution_mapping/"+this.nameOfPuzzle+".json";
       ImageToJson.imageListToJson(imagePOJOS,nameFile);
